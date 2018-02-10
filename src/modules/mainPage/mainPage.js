@@ -4,20 +4,49 @@ import { getUserPosition } from "../services/geolocationService";
 
 const app = document.querySelector(".app");
 
-const displayGoButton = () => {
-    const div = document.createElement("div");
+const displayInterface = () => {
+    const userInterface = document.createElement("div");
     const message = document.createElement("span");
-    const goButton = document.createElement("button");
-    const errorContainer = document.createElement("div");
+    const allowButton = document.createElement("button");
+    const interfaceErrorContainer = document.createElement("div");
 
     message.textContent = "Find nearby ATMs";
-    goButton.textContent = "Go";
-    goButton.disabled = true;
+    allowButton.textContent = "Use My Location";
+    allowButton.addEventListener("click", getUserLocationData);
+    interfaceErrorContainer.classList.add("interface-error-container");
 
-    appendChildren(div, message, goButton, errorContainer);
-    appendChildren(app, div);
+    appendChildren(userInterface, message, allowButton, interfaceErrorContainer);
+    appendChildren(app, userInterface);
 };
 
+const geolocationNotSupportedHandler = (message) => {
+    const errorContainer = document.querySelector(".interface-error-container");
+    errorContainer.textContent = message;
+};
+
+const errorHandler = error => {
+    const errorContainer = document.querySelector(".interface-error-container");
+
+    if (error.code === 1) {
+        errorContainer.textContent = "Geolocation is currently disabled. Please enable it in your browser's settings in order to see the results.";
+    } else {
+        errorContainer.textContent = "Unfortunately, we are currently unable to retrieve your location";
+    }
+};
+
+const getUserLocationData = () => {
+    const errorContainer = document.querySelector(".interface-error-container");
+    errorContainer.textContent = "";
+
+    getUserPosition(
+        message => geolocationNotSupportedHandler(message),
+        userLocation => getAtmList(userLocation),
+        error => errorHandler(error)
+    );
+};
+
+const getAtmList = (userLocation) => console.log(userLocation);
+
 export const onPageLoad = () => {
-    displayGoButton();
+    displayInterface();
 };
