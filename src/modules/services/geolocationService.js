@@ -1,3 +1,5 @@
+import { getUserLocation } from "./dataService";
+
 export const getUserPosition = (isNotSupportedHandler, successHandler, errorHandler) => {
 
     if (!navigator.geolocation) {
@@ -5,5 +7,5 @@ export const getUserPosition = (isNotSupportedHandler, successHandler, errorHand
         return;
     }
 
-    navigator.geolocation.getCurrentPosition(position => successHandler(position), error => errorHandler(error));
+    navigator.geolocation.getCurrentPosition(position => successHandler(getUserLocation(position)), error => errorHandler(error));
 };
