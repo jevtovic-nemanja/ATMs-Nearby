@@ -1,4 +1,5 @@
 import "babel-polyfill";
 
-const app = document.querySelector(".app");
-app.textContent = "Test";
+import { onPageLoad } from "../src/modules/mainPage";
+
+onPageLoad();
