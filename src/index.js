@@ -1,5 +1,5 @@
 import "babel-polyfill";
 
-import { getUserLocation } from "../src/modules/services/geolocationService";
+import { onPageLoad } from "../src/modules/mainPage";
 
-const app = document.querySelector(".app");
+onPageLoad();
