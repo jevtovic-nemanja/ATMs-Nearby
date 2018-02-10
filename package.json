@@ -1,0 +1,35 @@
+{
+  "name": "atms-nearby",
+  "version": "1.0.0",
+  "description": "Webapp that displays a list of closest ATMs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server -d"
+  },
+  "author": "jevtovic-nemanja",
+  "license": "ISC",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.9",
+    "eslint": "^4.10.0",
+    "eslint-loader": "^1.9.0",
+    "path": "^0.12.7",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  },
+  "main": "webpack.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jevtovic-nemanja/ATMs-Nearby.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jevtovic-nemanja/ATMs-Nearby/issues"
+  },
+  "homepage": "https://github.com/jevtovic-nemanja/ATMs-Nearby#readme"
+}
