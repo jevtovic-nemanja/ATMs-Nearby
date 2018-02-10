@@ -1,6 +1,6 @@
 import { appendChildren } from "../../utils/helpers";
 
-import { getUserPosition } from "../services/geolocationService";
+import { getUserGeoPosition } from "../services/geolocationService";
 
 const app = document.querySelector(".app");
 
@@ -38,14 +38,14 @@ const getUserLocationData = () => {
     const errorContainer = document.querySelector(".interface-error-container");
     errorContainer.textContent = "";
 
-    getUserPosition(
+    getUserGeoPosition(
         message => geolocationNotSupportedHandler(message),
-        userLocation => getAtmList(userLocation),
+        userCoordinates => getAtmList(userCoordinates),
         error => errorHandler(error)
     );
 };
 
-const getAtmList = (userLocation) => console.log(userLocation);
+const getAtmList = (userCoordinates) => console.log(userCoordinates);
 
 export const onPageLoad = () => {
     displayInterface();

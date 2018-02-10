@@ -1,4 +1,4 @@
-class UserLocation {
+class UserCoordinates {
     constructor(lat, lng) {
         this._lat = lat;
         this._lng = lng;
@@ -13,4 +13,4 @@ class UserLocation {
     }
 }
 
-export default UserLocation;
+export default UserCoordinates;

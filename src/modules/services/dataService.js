@@ -1,7 +1,7 @@
-import UserLocation from "../entities/userLocation";
+import UserCoordinates from "../entities/userLocation";
 
-export const getUserLocation = position => {
+export const getUserCoordinates = position => {
     const { latitude, longitude } = position.coords;
-    const userLocation = new UserLocation(latitude, longitude);
-    return userLocation;
+    const userCoordinates = new UserCoordinates(latitude, longitude);
+    return userCoordinates;
 };
