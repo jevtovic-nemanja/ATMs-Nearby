@@ -1,6 +1,6 @@
 import { appendChildren } from "../../utils/helpers";
 
-import { getUserGeoPosition } from "../services/geolocationService";
+import { geolocationService } from "../services/geolocationService";
 
 const app = document.querySelector(".app");
 
@@ -38,7 +38,7 @@ const getUserLocationData = () => {
     const errorContainer = document.querySelector(".interface-error-container");
     errorContainer.textContent = "";
 
-    getUserGeoPosition(
+    geolocationService.getUserGeoPosition(
         message => geolocationNotSupportedHandler(message),
         userCoordinates => getAtmList(userCoordinates),
         error => errorHandler(error)
