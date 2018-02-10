@@ -1,11 +1,11 @@
 class CommService {
     constructor() { }
 
-    getData(url, callback, errorCallback) {
+    getData(url, successHandler, errorHandler) {
         fetch(url)
             .then(response => response.json())
-            .then(data => callback(data))
-            .catch(error => errorCallback(error));
+            .then(data => successHandler(data))
+            .catch(error => errorHandler(error));
     }
 }
 
