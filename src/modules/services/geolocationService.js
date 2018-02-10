@@ -1,9 +1,11 @@
-export const getUserLocation = (isNotSupportedHandler, successHandler, errorHandler) => {
+import { getUserCoordinates } from "./dataService";
+
+export const getUserGeoPosition = (isNotSupportedHandler, successHandler, errorHandler) => {
 
     if (!navigator.geolocation) {
         isNotSupportedHandler("Unfortunately, geolocation is not supported by your browser.");
         return;
     }
 
-    navigator.geolocation.getCurrentPosition(position => successHandler(position), error => errorHandler(error));
+    navigator.geolocation.getCurrentPosition(position => successHandler(getUserCoordinates(position)), error => errorHandler(error));
 };
