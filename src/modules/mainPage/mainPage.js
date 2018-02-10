@@ -1,6 +1,6 @@
 import { appendChildren } from "../../utils/helpers";
 
-import { getUserLocation } from "../services/geolocationService";
+import { getUserPosition } from "../services/geolocationService";
 
 const app = document.querySelector(".app");
 

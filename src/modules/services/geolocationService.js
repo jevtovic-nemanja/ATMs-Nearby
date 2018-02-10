@@ -1,4 +1,4 @@
-export const getUserLocation = (isNotSupportedHandler, successHandler, errorHandler) => {
+export const getUserPosition = (isNotSupportedHandler, successHandler, errorHandler) => {
 
     if (!navigator.geolocation) {
         isNotSupportedHandler("Unfortunately, geolocation is not supported by your browser.");
