@@ -11,6 +11,7 @@ const displayGoButton = () => {
 
     message.textContent = "Find nearby ATMs";
     goButton.textContent = "Go";
+    goButton.disabled = true;
 
     appendChildren(div, message, goButton);
     appendChildren(app, div);
