@@ -1,8 +1,10 @@
 import { appendChildren } from "../../utils/helpers";
 
 import { geolocationService } from "../services/geolocationService";
+import { dataService } from "../services/dataService";
 
 const app = document.querySelector(".app");
+const atms = [];
 
 const displayInterface = () => {
     const userInterface = document.createElement("div");
@@ -27,10 +29,10 @@ const geolocationNotSupportedHandler = (message) => {
 const errorHandler = error => {
     const errorContainer = document.querySelector(".interface-error-container");
 
-    if (error.code === 1) {
+    if (error.code && error.code === 1) {
         errorContainer.textContent = "Geolocation is currently disabled. Please enable it in your browser's settings in order to see the results.";
     } else {
-        errorContainer.textContent = "Unfortunately, we are currently unable to retrieve your location";
+        errorContainer.textContent = "Unfortunately, something has went wrong. Don't worry, we're looking into it.";
     }
 };
 
@@ -45,7 +47,11 @@ const getUserLocationData = () => {
     );
 };
 
-const getAtmList = (userCoordinates) => console.log(userCoordinates);
+const getAtmList = userCoordinates => dataService.getAtmData(
+    userCoordinates,
+    atm => atms.push(atm),
+    error => errorHandler(error)
+);
 
 export const onPageLoad = () => {
     displayInterface();
