@@ -1,10 +1,11 @@
+import { RESULTS_PER_REQUEST } from "../../constants";
 import { appendChildren } from "../../utils/helpers";
 
 import { geolocationService } from "../services/geolocationService";
 import { dataService } from "../services/dataService";
 
 const app = document.querySelector(".app");
-const atms = [];
+let atms = [];
 
 const displayInterface = () => {
     const userInterface = document.createElement("div");
@@ -47,11 +48,25 @@ const getUserLocationData = () => {
     );
 };
 
-const getAtmList = userCoordinates => dataService.getAtmData(
-    userCoordinates,
-    atm => atms.push(atm),
-    error => errorHandler(error)
-);
+const getAtmList = userCoordinates => {
+    dataService.getAtmData(userCoordinates,
+        atm => {
+            atms.push(atm);
+            if (atms.length === RESULTS_PER_REQUEST) {
+                findClosestAtms();
+            }
+        },
+        error => errorHandler(error));
+};
+
+const findClosestAtms = () => {
+    atms.sort((a, b) => {
+        const distanceA = parseFloat(a.distance);
+        const distanceB = parseFloat(b.distance);
+        return distanceA - distanceB;
+    });
+    atms = atms.slice(0, 10);
+};
 
 export const onPageLoad = () => {
     displayInterface();
