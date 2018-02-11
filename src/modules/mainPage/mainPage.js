@@ -8,7 +8,8 @@ const app = document.querySelector(".app");
 const data = {
     closestAtms: [],
     currentAtms: [],
-    sort: false
+    sort: false,
+    onlyMultyCurrency: false
 };
 
 const displayInterface = () => {
@@ -34,14 +35,15 @@ const geolocationNotSupportedHandler = (message) => {
 };
 
 const errorHandler = error => {
-    const errorContainer = document.querySelector(".interface-error-container");
+    const interfaceErrorContainer = document.querySelector(".interface-error-container");
+    const filterErrorContainer = document.querySelector(".filter-error-container");
 
     if (error.code && error.code === 1) {
-        errorContainer.textContent = "Geolocation is currently disabled. Please enable it in your browser's settings in order to see the results.";
+        interfaceErrorContainer.textContent = "Geolocation is currently disabled. Please enable it in your browser's settings in order to see the results.";
     } else if (error === "NO_RESULTS") {
-        errorContainer.textContent = "There are no results for the specified search criteria.";
+        filterErrorContainer.textContent = "There are no results for the specified search criteria.";
     } else {
-        errorContainer.textContent = "Unfortunately, something has went wrong. Don't worry, we're looking into it.";
+        interfaceErrorContainer.textContent = "Unfortunately, something has went wrong. Don't worry, we're looking into it.";
     }
 };
 
@@ -120,14 +122,16 @@ const displayFilterOptions = () => {
     const buttonGroup = document.createElement("div");
     const sortButton = document.createElement("button");
     const multiCurrencyButton = document.createElement("button");
+    const filterErrorContainer = document.createElement("div");
 
     sortButton.textContent = "Sort by distance";
     multiCurrencyButton.textContent = "Show only multi-currency ATMs";
+    filterErrorContainer.classList.add("filter-error-container");
 
     sortButton.addEventListener("click", sortAtmList);
     multiCurrencyButton.addEventListener("click", filterMultiCurrency);
 
-    appendChildren(buttonGroup, sortButton, multiCurrencyButton);
+    appendChildren(buttonGroup, sortButton, multiCurrencyButton, filterErrorContainer);
     listContainer.prepend(buttonGroup);
 };
 
@@ -144,7 +148,15 @@ const sortAtmList = () => {
 };
 
 const filterMultiCurrency = () => {
+    if (!data.onlyMultyCurrency) {
+        const filteredAtms = data.currentAtms.filter(atm => atm.isMultyCurrency);
+        data.currentAtms = filteredAtms;
+    } else {
+        data.currentAtms = data.closestAtms;
+    }
 
+    data.onlyMultyCurrency = !data.onlyMultyCurrency;
+    displayAtmsList();
 };
 
 export const onPageLoad = () => {
