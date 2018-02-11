@@ -3,3 +3,8 @@
 body {
     box-sizing: border-box;
 }
+
+@font-face {
+    font-family: "Mentone";
+    src: url("../fonts/mentone-semibol.otf");
+}
