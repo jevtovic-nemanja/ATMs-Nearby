@@ -151,14 +151,13 @@ const assignCurrentAtms = () => {
     if (sort && !onlyMultyCurrency) {
         data.currentAtms = sortByDistance(closestAtms);
     } else if (sort && onlyMultyCurrency) {
-        data.currentAtms = sortByDistance(closestAtms).filter(atm => atm.isMultyCurrency);
+        data.currentAtms = sortByDistance(closestAtms).filter(atm => atm.isMultiCurrency);
     } else if (!sort && onlyMultyCurrency) {
-        data.currentAtms = data.currentAtms.filter(atm => atm.isMultyCurrency);
+        data.currentAtms = data.currentAtms.filter(atm => atm.isMultiCurrency);
     } else if (!sort && !onlyMultyCurrency) {
         data.currentAtms = closestAtms;
     }
     
-    console.log(data);
     displayAtmsList();
 };
 
