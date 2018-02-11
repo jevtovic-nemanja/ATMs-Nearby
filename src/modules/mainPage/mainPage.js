@@ -1,32 +1,17 @@
-import { RESULTS_PER_REQUEST, GOOGLE_STATIC_MAPS_URL } from "../../constants";
-import { appendChildren, formatDistance } from "../../utils/helpers";
+import { RESULTS_PER_REQUEST } from "../../constants";
 
 import { geolocationService } from "../services/geolocationService";
 import { dataService } from "../services/dataService";
+
+import { displayInterface } from "./userInterface/userInterface";
+import { displayAtmsList } from "./atmsList/atmsList";
 
 const app = document.querySelector(".app");
 let data = {
     closestAtms: [],
     currentAtms: [],
     sort: false,
-    onlyMultyCurrency: false
-};
-
-const displayInterface = () => {
-    const userInterface = document.createElement("div");
-    const message = document.createElement("span");
-    const allowButton = document.createElement("button");
-    const interfaceErrorContainer = document.createElement("div");
-    const listContainer = document.createElement("div");
-
-    message.textContent = "Find nearby ATMs";
-    allowButton.textContent = "Use My Location";
-    allowButton.addEventListener("click", getUserLocationData);
-    interfaceErrorContainer.classList.add("interface-error-container");
-    listContainer.classList.add("list-container");
-
-    appendChildren(userInterface, message, allowButton, interfaceErrorContainer);
-    appendChildren(app, userInterface, listContainer);
+    onlyMultiCurrency: false
 };
 
 const geolocationNotSupportedHandler = (message) => {
@@ -47,7 +32,7 @@ const errorHandler = error => {
     }
 };
 
-const getUserLocationData = () => {
+export const getUserLocationData = () => {
     const errorContainer = document.querySelector(".interface-error-container");
     errorContainer.textContent = "";
 
@@ -66,7 +51,7 @@ const getAtmList = userCoordinates => {
             allAtms.push(atm);
             if (allAtms.length === RESULTS_PER_REQUEST) {
                 findClosestAtms(allAtms);
-                displayAtmsList();
+                displayAtmsList(data.currentAtms, errorHandler);
             }
         },
         error => errorHandler(error));
@@ -89,76 +74,30 @@ const sortByDistance = atms => {
     return atmArray;
 };
 
-const displayAtmsList = () => {
-    const listContainer = document.querySelector(".list-container");
-    listContainer.innerHTML = "";
-
-    displayFilterOptions();
-
-    if (data.currentAtms.length) {
-        data.currentAtms.forEach(atm => {
-            const card = document.createElement("div");
-            const bankName = document.createElement("p");
-            const distanceFromUser = document.createElement("p");
-            const map = document.createElement("img");
-
-            const { lat, lng, name, distance } = atm;
-            bankName.textContent = name;
-            distanceFromUser.textContent = formatDistance(distance);
-            map.src = `${GOOGLE_STATIC_MAPS_URL}&markers=size:mid|${lat},${lng}`;
-            map.alt = "ATM Location Map";
-
-            appendChildren(card, map, bankName, distanceFromUser);
-            appendChildren(listContainer, card);
-        });
-    } else {
-        errorHandler("NO_RESULTS");
-    }
-};
-
-const displayFilterOptions = () => {
-    const listContainer = document.querySelector(".list-container");
-
-    const buttonGroup = document.createElement("div");
-    const sortButton = document.createElement("button");
-    const multiCurrencyButton = document.createElement("button");
-    const filterErrorContainer = document.createElement("div");
-
-    sortButton.textContent = "Sort by distance";
-    multiCurrencyButton.textContent = "Show only multi-currency ATMs";
-    filterErrorContainer.classList.add("filter-error-container");
-
-    sortButton.addEventListener("click", handleSortClick);
-    multiCurrencyButton.addEventListener("click", handleFilterClick);
-
-    appendChildren(buttonGroup, sortButton, multiCurrencyButton, filterErrorContainer);
-    listContainer.prepend(buttonGroup);
-};
-
-const handleSortClick = () => {
+export const handleSortClick = () => {
     data.sort = !data.sort;
     assignCurrentAtms();
 };
 
-const handleFilterClick = () => {
-    data.onlyMultyCurrency = !data.onlyMultyCurrency;
+export const handleFilterClick = () => {
+    data.onlyMultiCurrency = !data.onlyMultiCurrency;
     assignCurrentAtms();
 };
 
 const assignCurrentAtms = () => {
-    const { closestAtms, sort, onlyMultyCurrency } = data;
+    const { closestAtms, sort, onlyMultiCurrency } = data;
 
-    if (sort && !onlyMultyCurrency) {
+    if (sort && !onlyMultiCurrency) {
         data.currentAtms = sortByDistance(closestAtms);
-    } else if (sort && onlyMultyCurrency) {
+    } else if (sort && onlyMultiCurrency) {
         data.currentAtms = sortByDistance(closestAtms).filter(atm => atm.isMultiCurrency);
-    } else if (!sort && onlyMultyCurrency) {
+    } else if (!sort && onlyMultiCurrency) {
         data.currentAtms = data.currentAtms.filter(atm => atm.isMultiCurrency);
-    } else if (!sort && !onlyMultyCurrency) {
+    } else if (!sort && !onlyMultiCurrency) {
         data.currentAtms = closestAtms;
     }
-    
-    displayAtmsList();
+
+    displayAtmsList(data.currentAtms, errorHandler);
 };
 
 export const onPageLoad = () => {
