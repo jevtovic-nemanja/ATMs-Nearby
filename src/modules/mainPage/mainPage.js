@@ -85,6 +85,8 @@ const sortByDistance = atms => {
 };
 
 const displayAtmsList = () => {
+    displayFilterOptions();
+
     if (data.currentAtms.length) {
         data.currentAtms.forEach(atm => {
             const card = document.createElement("div");
@@ -104,6 +106,17 @@ const displayAtmsList = () => {
     } else {
         errorHandler("NO_RESULTS");
     }
+};
+
+const displayFilterOptions = () => {
+    const sortButton = document.createElement("button");
+    const multiCurrencyButton = document.createElement("button");
+
+    sortButton.textContent = "Sort by distance";
+    multiCurrencyButton.textContent = "Show only multi-currency ATMs";
+
+    sortButton.addEventListener("click", sortAtmList);
+    multiCurrencyButton.addEventListener("click", filterMultiCurrency);
 };
 
 export const onPageLoad = () => {
