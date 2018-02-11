@@ -24,7 +24,7 @@ class DataService {
         const lat = atm.geometry.location.lat();
         const lng = atm.geometry.location.lng();
         const name = atm.name;
-        const distance = distanceFromUser;
+        const distance = parseFloat(distanceFromUser);
         const isMultiCurrency = name.toLowerCase().includes("telenor");
 
         const newAtm = new Atm(lat, lng, name, distance, isMultiCurrency);

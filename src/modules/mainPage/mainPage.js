@@ -1,5 +1,5 @@
 import { RESULTS_PER_REQUEST, GOOGLE_STATIC_MAPS_URL } from "../../constants";
-import { appendChildren } from "../../utils/helpers";
+import { appendChildren, formatDistance } from "../../utils/helpers";
 
 import { geolocationService } from "../services/geolocationService";
 import { dataService } from "../services/dataService";
@@ -104,7 +104,7 @@ const displayAtmsList = () => {
 
             const { lat, lng, name, distance } = atm;
             bankName.textContent = name;
-            distanceFromUser.textContent = distance;
+            distanceFromUser.textContent = formatDistance(distance);
             map.src = `${GOOGLE_STATIC_MAPS_URL}&markers=size:mid|${lat},${lng}`;
             map.alt = "ATM Location Map";
 
