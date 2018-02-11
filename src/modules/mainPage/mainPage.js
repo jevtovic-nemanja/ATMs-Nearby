@@ -1,8 +1,11 @@
+import { RESULTS_PER_REQUEST } from "../../constants";
 import { appendChildren } from "../../utils/helpers";
 
-import { getUserGeoPosition } from "../services/geolocationService";
+import { geolocationService } from "../services/geolocationService";
+import { dataService } from "../services/dataService";
 
 const app = document.querySelector(".app");
+let atms = [];
 
 const displayInterface = () => {
     const userInterface = document.createElement("div");
@@ -27,10 +30,10 @@ const geolocationNotSupportedHandler = (message) => {
 const errorHandler = error => {
     const errorContainer = document.querySelector(".interface-error-container");
 
-    if (error.code === 1) {
+    if (error.code && error.code === 1) {
         errorContainer.textContent = "Geolocation is currently disabled. Please enable it in your browser's settings in order to see the results.";
     } else {
-        errorContainer.textContent = "Unfortunately, we are currently unable to retrieve your location";
+        errorContainer.textContent = "Unfortunately, something has went wrong. Don't worry, we're looking into it.";
     }
 };
 
@@ -38,14 +41,32 @@ const getUserLocationData = () => {
     const errorContainer = document.querySelector(".interface-error-container");
     errorContainer.textContent = "";
 
-    getUserGeoPosition(
+    geolocationService.getUserGeoPosition(
         message => geolocationNotSupportedHandler(message),
         userCoordinates => getAtmList(userCoordinates),
         error => errorHandler(error)
     );
 };
 
-const getAtmList = (userCoordinates) => console.log(userCoordinates);
+const getAtmList = userCoordinates => {
+    dataService.getAtmData(userCoordinates,
+        atm => {
+            atms.push(atm);
+            if (atms.length === RESULTS_PER_REQUEST) {
+                findClosestAtms();
+            }
+        },
+        error => errorHandler(error));
+};
+
+const findClosestAtms = () => {
+    atms.sort((a, b) => {
+        const distanceA = parseFloat(a.distance);
+        const distanceB = parseFloat(b.distance);
+        return distanceA - distanceB;
+    });
+    atms = atms.slice(0, 10);
+};
 
 export const onPageLoad = () => {
     displayInterface();
