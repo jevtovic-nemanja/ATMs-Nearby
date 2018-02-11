@@ -7,7 +7,8 @@ import { dataService } from "../services/dataService";
 const app = document.querySelector(".app");
 const data = {
     closestAtms: [],
-    currentAtms: []
+    currentAtms: [],
+    sort: false
 };
 
 const displayInterface = () => {
@@ -15,14 +16,16 @@ const displayInterface = () => {
     const message = document.createElement("span");
     const allowButton = document.createElement("button");
     const interfaceErrorContainer = document.createElement("div");
+    const listContainer = document.createElement("div");
 
     message.textContent = "Find nearby ATMs";
     allowButton.textContent = "Use My Location";
     allowButton.addEventListener("click", getUserLocationData);
     interfaceErrorContainer.classList.add("interface-error-container");
+    listContainer.classList.add("list-container");
 
     appendChildren(userInterface, message, allowButton, interfaceErrorContainer);
-    appendChildren(app, userInterface);
+    appendChildren(app, userInterface, listContainer);
 };
 
 const geolocationNotSupportedHandler = (message) => {
@@ -85,6 +88,9 @@ const sortByDistance = atms => {
 };
 
 const displayAtmsList = () => {
+    const listContainer = document.querySelector(".list-container");
+    listContainer.innerHTML = "";
+
     displayFilterOptions();
 
     if (data.currentAtms.length) {
@@ -101,7 +107,7 @@ const displayAtmsList = () => {
             map.alt = "ATM Location Map";
 
             appendChildren(card, map, bankName, distanceFromUser);
-            appendChildren(app, card);
+            appendChildren(listContainer, card);
         });
     } else {
         errorHandler("NO_RESULTS");
@@ -109,6 +115,9 @@ const displayAtmsList = () => {
 };
 
 const displayFilterOptions = () => {
+    const listContainer = document.querySelector(".list-container");
+
+    const buttonGroup = document.createElement("div");
     const sortButton = document.createElement("button");
     const multiCurrencyButton = document.createElement("button");
 
@@ -117,6 +126,25 @@ const displayFilterOptions = () => {
 
     sortButton.addEventListener("click", sortAtmList);
     multiCurrencyButton.addEventListener("click", filterMultiCurrency);
+
+    appendChildren(buttonGroup, sortButton, multiCurrencyButton);
+    listContainer.prepend(buttonGroup);
+};
+
+const sortAtmList = () => {
+    if (!data.sort) {
+        const sortedAtms = sortByDistance(data.closestAtms);
+        data.currentAtms = sortedAtms;
+    } else {
+        data.currentAtms = data.closestAtms;
+    }
+
+    data.sort = !data.sort;
+    displayAtmsList();
+};
+
+const filterMultiCurrency = () => {
+
 };
 
 export const onPageLoad = () => {
