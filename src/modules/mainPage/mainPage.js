@@ -8,7 +8,8 @@ import { displayAtmsList } from "./atmsList/atmsList";
 
 const app = document.querySelector(".app");
 let data = {
-    closestAtms: [],
+    atms: [],
+    sortedAtms: [],
     currentAtms: [],
     sort: false,
     onlyMultiCurrency: false
@@ -58,10 +59,11 @@ const getAtmList = userCoordinates => {
 };
 
 const findClosestAtms = atmList => {
-    const closestAtmsSorted = sortByDistance(atmList).slice(0, 10);
-    const closestAtms = atmList.filter(atm => closestAtmsSorted.includes(atm));
-    data.closestAtms = closestAtms;
-    data.currentAtms = closestAtms;
+    const closestAtms = sortByDistance(atmList).slice(0, 10);
+    const atms = atmList.filter(atm => closestAtms.includes(atm));
+    data.atms = atms;
+    data.currentAtms = atms;
+    data.sortedAtms = closestAtms;
 };
 
 const sortByDistance = atms => {
@@ -85,16 +87,16 @@ export const handleFilterClick = () => {
 };
 
 const assignCurrentAtms = () => {
-    const { closestAtms, sort, onlyMultiCurrency } = data;
+    const { atms, sortedAtms, sort, onlyMultiCurrency } = data;
 
-    if (sort && !onlyMultiCurrency) {
-        data.currentAtms = sortByDistance(closestAtms);
-    } else if (sort && onlyMultiCurrency) {
-        data.currentAtms = sortByDistance(closestAtms).filter(atm => atm.isMultiCurrency);
+    if (!sort && !onlyMultiCurrency) {
+        data.currentAtms = atms;
+    } else if (sort && !onlyMultiCurrency) {
+        data.currentAtms = sortedAtms;
     } else if (!sort && onlyMultiCurrency) {
-        data.currentAtms = data.currentAtms.filter(atm => atm.isMultiCurrency);
-    } else if (!sort && !onlyMultiCurrency) {
-        data.currentAtms = closestAtms;
+        data.currentAtms = atms.filter(atm => atm.isMultiCurrency);
+    } else if (sort && onlyMultiCurrency) {
+        data.currentAtms = sortedAtms.filter(atm => atm.isMultiCurrency);
     }
 
     displayAtmsList(data.currentAtms, errorHandler);
