@@ -5,7 +5,11 @@ import { geolocationService } from "../services/geolocationService";
 import { dataService } from "../services/dataService";
 
 const app = document.querySelector(".app");
-let atms = [];
+const data = {
+    closestAtms: [],
+    sortedByDistance: [],
+    multiCurrency: []
+};
 
 const displayInterface = () => {
     const userInterface = document.createElement("div");
@@ -49,23 +53,31 @@ const getUserLocationData = () => {
 };
 
 const getAtmList = userCoordinates => {
+    const allAtms = [];
+
     dataService.getAtmData(userCoordinates,
         atm => {
-            atms.push(atm);
-            if (atms.length === RESULTS_PER_REQUEST) {
-                findClosestAtms();
+            allAtms.push(atm);
+            if (allAtms.length === RESULTS_PER_REQUEST) {
+                findClosestAtms(allAtms);
             }
         },
         error => errorHandler(error));
 };
 
-const findClosestAtms = () => {
-    atms.sort((a, b) => {
+const findClosestAtms = atmList => {
+    const closestAtms = sortByDistance(atmList).slice(0, 10);
+    data.closestAtms = atmList.filter(atm => closestAtms.includes(atm));
+};
+
+const sortByDistance = atms => {
+    const atmArray = [...atms];
+    atmArray.sort((a, b) => {
         const distanceA = parseFloat(a.distance);
         const distanceB = parseFloat(b.distance);
         return distanceA - distanceB;
     });
-    atms = atms.slice(0, 10);
+    return atmArray;
 };
 
 export const onPageLoad = () => {
