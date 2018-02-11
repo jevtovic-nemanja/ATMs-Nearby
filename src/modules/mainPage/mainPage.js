@@ -7,8 +7,7 @@ import { dataService } from "../services/dataService";
 const app = document.querySelector(".app");
 const data = {
     closestAtms: [],
-    sortedByDistance: [],
-    multiCurrency: []
+    currentAtms: []
 };
 
 const displayInterface = () => {
@@ -66,8 +65,10 @@ const getAtmList = userCoordinates => {
 };
 
 const findClosestAtms = atmList => {
-    const closestAtms = sortByDistance(atmList).slice(0, 10);
-    data.closestAtms = atmList.filter(atm => closestAtms.includes(atm));
+    const closestAtmsSorted = sortByDistance(atmList).slice(0, 10);
+    const closestAtms = atmList.filter(atm => closestAtmsSorted.includes(atm));
+    data.closestAtms = closestAtms;
+    data.currentAtms = closestAtms;
 };
 
 const sortByDistance = atms => {
