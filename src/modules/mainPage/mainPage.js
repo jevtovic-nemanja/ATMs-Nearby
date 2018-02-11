@@ -5,7 +5,7 @@ import { geolocationService } from "../services/geolocationService";
 import { dataService } from "../services/dataService";
 
 const app = document.querySelector(".app");
-const data = {
+let data = {
     closestAtms: [],
     currentAtms: [],
     sort: false,
@@ -128,34 +128,37 @@ const displayFilterOptions = () => {
     multiCurrencyButton.textContent = "Show only multi-currency ATMs";
     filterErrorContainer.classList.add("filter-error-container");
 
-    sortButton.addEventListener("click", sortAtmList);
-    multiCurrencyButton.addEventListener("click", filterMultiCurrency);
+    sortButton.addEventListener("click", handleSortClick);
+    multiCurrencyButton.addEventListener("click", handleFilterClick);
 
     appendChildren(buttonGroup, sortButton, multiCurrencyButton, filterErrorContainer);
     listContainer.prepend(buttonGroup);
 };
 
-const sortAtmList = () => {
-    if (!data.sort) {
-        const sortedAtms = sortByDistance(data.closestAtms);
-        data.currentAtms = sortedAtms;
-    } else {
-        data.currentAtms = data.closestAtms;
-    }
-
+const handleSortClick = () => {
     data.sort = !data.sort;
-    displayAtmsList();
+    assignCurrentAtms();
 };
 
-const filterMultiCurrency = () => {
-    if (!data.onlyMultyCurrency) {
-        const filteredAtms = data.currentAtms.filter(atm => atm.isMultyCurrency);
-        data.currentAtms = filteredAtms;
-    } else {
-        data.currentAtms = data.closestAtms;
-    }
-
+const handleFilterClick = () => {
     data.onlyMultyCurrency = !data.onlyMultyCurrency;
+    assignCurrentAtms();
+};
+
+const assignCurrentAtms = () => {
+    const { closestAtms, sort, onlyMultyCurrency } = data;
+
+    if (sort && !onlyMultyCurrency) {
+        data.currentAtms = sortByDistance(closestAtms);
+    } else if (sort && onlyMultyCurrency) {
+        data.currentAtms = sortByDistance(closestAtms).filter(atm => atm.isMultyCurrency);
+    } else if (!sort && onlyMultyCurrency) {
+        data.currentAtms = data.currentAtms.filter(atm => atm.isMultyCurrency);
+    } else if (!sort && !onlyMultyCurrency) {
+        data.currentAtms = closestAtms;
+    }
+    
+    console.log(data);
     displayAtmsList();
 };
 
