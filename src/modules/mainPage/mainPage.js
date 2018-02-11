@@ -35,6 +35,8 @@ const errorHandler = error => {
 
     if (error.code && error.code === 1) {
         errorContainer.textContent = "Geolocation is currently disabled. Please enable it in your browser's settings in order to see the results.";
+    } else if (error === "NO_RESULTS") {
+        errorContainer.textContent = "There are no results for the specified search criteria.";
     } else {
         errorContainer.textContent = "Unfortunately, something has went wrong. Don't worry, we're looking into it.";
     }
@@ -83,21 +85,25 @@ const sortByDistance = atms => {
 };
 
 const displayAtmsList = () => {
-    data.currentAtms.forEach(atm => {
-        const card = document.createElement("div");
-        const bankName = document.createElement("p");
-        const distanceFromUser = document.createElement("p");
-        const map = document.createElement("img");
+    if (data.currentAtms.length) {
+        data.currentAtms.forEach(atm => {
+            const card = document.createElement("div");
+            const bankName = document.createElement("p");
+            const distanceFromUser = document.createElement("p");
+            const map = document.createElement("img");
 
-        const { lat, lng, name, distance } = atm;
-        bankName.textContent = name;
-        distanceFromUser.textContent = distance;
-        map.src = `${GOOGLE_STATIC_MAPS_URL}&markers=size:mid|${lat},${lng}`;
-        map.alt = "ATM Location Map";
+            const { lat, lng, name, distance } = atm;
+            bankName.textContent = name;
+            distanceFromUser.textContent = distance;
+            map.src = `${GOOGLE_STATIC_MAPS_URL}&markers=size:mid|${lat},${lng}`;
+            map.alt = "ATM Location Map";
 
-        appendChildren(card, map, bankName, distanceFromUser);
-        appendChildren(app, card);
-    });
+            appendChildren(card, map, bankName, distanceFromUser);
+            appendChildren(app, card);
+        });
+    } else {
+        errorHandler("NO_RESULTS");
+    }
 };
 
 export const onPageLoad = () => {
