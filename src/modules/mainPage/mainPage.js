@@ -1,4 +1,4 @@
-import { RESULTS_PER_REQUEST } from "../../constants";
+import { RESULTS_PER_REQUEST, GOOGLE_STATIC_MAPS_URL } from "../../constants";
 import { appendChildren } from "../../utils/helpers";
 
 import { geolocationService } from "../services/geolocationService";
@@ -59,6 +59,7 @@ const getAtmList = userCoordinates => {
             allAtms.push(atm);
             if (allAtms.length === RESULTS_PER_REQUEST) {
                 findClosestAtms(allAtms);
+                displayAtmsList();
             }
         },
         error => errorHandler(error));
@@ -79,6 +80,24 @@ const sortByDistance = atms => {
         return distanceA - distanceB;
     });
     return atmArray;
+};
+
+const displayAtmsList = () => {
+    data.currentAtms.forEach(atm => {
+        const card = document.createElement("div");
+        const bankName = document.createElement("p");
+        const distanceFromUser = document.createElement("p");
+        const map = document.createElement("img");
+
+        const { lat, lng, name, distance } = atm;
+        bankName.textContent = name;
+        distanceFromUser.textContent = distance;
+        map.src = `${GOOGLE_STATIC_MAPS_URL}&markers=size:mid|${lat},${lng}`;
+        map.alt = "ATM Location Map";
+
+        appendChildren(card, map, bankName, distanceFromUser);
+        appendChildren(app, card);
+    });
 };
 
 export const onPageLoad = () => {
