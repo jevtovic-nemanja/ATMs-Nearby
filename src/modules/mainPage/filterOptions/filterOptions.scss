@@ -1,0 +1,52 @@
+.filter-container {
+    display: grid;
+
+    @media screen and (min-width: 768px) {
+        grid-template-columns: 50% 50%;
+     }
+
+    .btn-sort,
+    .btn-filter {
+        background-color: #a1d6e2;
+        border-radius: 5px;
+        color: white;
+        font-family: "Verdana";
+        padding: 10px 20px;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        margin: 0 auto 10px;
+        width: 250px;
+
+        .sort-check,
+        .filter-check {
+            display: none;
+            margin-left: 10px;
+        }
+
+        .show-check {
+            display: inline;
+        }
+    }
+    
+    .btn-sort:hover,
+    .btn-filter:hover {
+        background-color: #a1cde2;
+    }
+
+    .btn-sort:active,
+    .btn-filter:active {
+        position: relative;
+        top: 1px;
+    }
+
+    @media screen and (min-width: 768px) {
+        .btn-sort {
+            margin-right: 5px;
+        }
+
+        .btn-filter {
+            margin-left: 5px;
+        }
+     }
+}

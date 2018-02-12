@@ -4,3 +4,9 @@
     color: #1995ad;
     text-align: center;
 }
+
+.filter-error-container {
+    @media screen and (min-width: 768px) {
+        grid-column: span 2;
+    }
+}

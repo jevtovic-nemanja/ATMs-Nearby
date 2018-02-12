@@ -1,3 +1,40 @@
-
+.filter-container {
+  display: grid; }
+  @media screen and (min-width: 768px) {
+    .filter-container {
+      grid-template-columns: 50% 50%; } }
+  .filter-container .btn-sort,
+  .filter-container .btn-filter {
+    background-color: #a1d6e2;
+    border-radius: 5px;
+    color: white;
+    font-family: "Verdana";
+    padding: 10px 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    margin: 0 auto 10px;
+    width: 250px; }
+    .filter-container .btn-sort .sort-check,
+    .filter-container .btn-sort .filter-check,
+    .filter-container .btn-filter .sort-check,
+    .filter-container .btn-filter .filter-check {
+      display: none;
+      margin-left: 10px; }
+    .filter-container .btn-sort .show-check,
+    .filter-container .btn-filter .show-check {
+      display: inline; }
+  .filter-container .btn-sort:hover,
+  .filter-container .btn-filter:hover {
+    background-color: #a1cde2; }
+  .filter-container .btn-sort:active,
+  .filter-container .btn-filter:active {
+    position: relative;
+    top: 1px; }
+  @media screen and (min-width: 768px) {
+    .filter-container .btn-sort {
+      margin-right: 5px; }
+    .filter-container .btn-filter {
+      margin-left: 5px; } }
 
 /*# sourceMappingURL=filterOptions.css.map */

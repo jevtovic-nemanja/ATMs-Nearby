@@ -12,8 +12,10 @@ export const displayInterface = () => {
     const interfaceErrorContainer = document.createElement("div");
     const loaderContainer = document.createElement("div");
     const listContainer = document.createElement("div");
+    const filterContainer = document.createElement("div");
 
     uiContainer.classList.add("ui-container");
+    filterContainer.classList.add("filter-container");
     message.textContent = "Find nearby ATM";
     message.classList.add("title");
     findButton.textContent = "Use My Location";
@@ -26,7 +28,7 @@ export const displayInterface = () => {
     findButton.addEventListener("click", getUserLocationData);
 
     appendChildren(uiContainer, message, findButton, interfaceErrorContainer, loaderContainer);
-    appendChildren(wrapper, uiContainer, listContainer);
+    appendChildren(wrapper, uiContainer, filterContainer, listContainer);
     appendChildren(app, wrapper);
 };
 

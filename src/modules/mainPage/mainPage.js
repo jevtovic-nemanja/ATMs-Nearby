@@ -4,6 +4,7 @@ import { geolocationService } from "../services/geolocationService";
 import { dataService } from "../services/dataService";
 
 import { displayInterface, changeUIPosition } from "./userInterface/userInterface";
+import { displayFilterOptions, toggleCheckmark } from "./filterOptions/filterOptions";
 import { displayAtmsList } from "./atmsList/atmsList";
 import { showLoader, hideLoader } from "./loader/loader";
 import { displayError } from "./error/error";
@@ -18,8 +19,8 @@ let data = {
 };
 
 export const getUserLocationData = () => {
-    const errorContainer = document.querySelector(".interface-error-container");
-    errorContainer.textContent = "";
+    const interfaceErrorContainer = document.querySelector(".interface-error-container");
+    interfaceErrorContainer.textContent = "";
 
     geolocationService.getUserGeoPosition(
         message => displayError(message),
@@ -41,6 +42,7 @@ const getAtmList = userCoordinates => {
                 findClosestAtms(allAtms);
                 hideLoader();
                 changeUIPosition();
+                displayFilterOptions();
                 displayAtmsList(data.currentAtms, displayError);
             }
         },
@@ -67,11 +69,13 @@ const sortByDistance = atms => {
 
 export const handleSortClick = () => {
     data.sort = !data.sort;
+    toggleCheckmark("sort-check");
     assignCurrentAtms();
 };
 
 export const handleFilterClick = () => {
     data.onlyMultiCurrency = !data.onlyMultiCurrency;
+    toggleCheckmark("filter-check");
     assignCurrentAtms();
 };
 
