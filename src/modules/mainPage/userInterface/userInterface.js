@@ -9,6 +9,7 @@ export const displayInterface = () => {
     const message = document.createElement("h4");
     const findButton = document.createElement("button");
     const interfaceErrorContainer = document.createElement("div");
+    const loaderContainer = document.createElement("div");
     const listContainer = document.createElement("div");
 
     uiContainer.classList.add("ui-container");
@@ -18,11 +19,12 @@ export const displayInterface = () => {
     findButton.classList.add("btn-find");
     interfaceErrorContainer.classList.add("interface-error-container");
     listContainer.classList.add("list-container");
+    loaderContainer.classList.add("loader-container");
 
     findButton.addEventListener("click", getUserLocationData);
     findButton.addEventListener("click", changeUIPosition);
 
-    appendChildren(uiContainer, message, findButton, interfaceErrorContainer);
+    appendChildren(uiContainer, message, findButton, interfaceErrorContainer, loaderContainer);
     appendChildren(app, uiContainer, listContainer);
 };
 

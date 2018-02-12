@@ -5,6 +5,7 @@ import { dataService } from "../services/dataService";
 
 import { displayInterface } from "./userInterface/userInterface";
 import { displayAtmsList } from "./atmsList/atmsList";
+import { showLoader, hideLoader } from "./loader/loader";
 
 const app = document.querySelector(".app");
 let data = {
@@ -36,6 +37,7 @@ const errorHandler = error => {
 export const getUserLocationData = () => {
     const errorContainer = document.querySelector(".interface-error-container");
     errorContainer.textContent = "";
+    showLoader();
 
     geolocationService.getUserGeoPosition(
         message => geolocationNotSupportedHandler(message),
@@ -52,6 +54,7 @@ const getAtmList = userCoordinates => {
             allAtms.push(atm);
             if (allAtms.length === RESULTS_PER_REQUEST) {
                 findClosestAtms(allAtms);
+                hideLoader();
                 displayAtmsList(data.currentAtms, errorHandler);
             }
         },
