@@ -1,5 +1,20 @@
+import { dataService } from "./dataService";
+
 class CommService {
     constructor() { }
+
+    getUserGeoPosition(isNotSupportedHandler, successHandler, errorHandler) {
+
+        if (!navigator.geolocation) {
+            isNotSupportedHandler("NO_GEOLOCATION");
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            position => successHandler(dataService.packUserCoordinates(position)),
+            error => errorHandler(error)
+        );
+    }
 
     getAtmData(userCoordinates, getDataSuccess, errorCallback) {
         const request = {

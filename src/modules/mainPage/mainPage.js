@@ -1,6 +1,5 @@
 import { RESULTS_PER_REQUEST } from "../../constants";
 
-import { geolocationService } from "../services/geolocationService";
 import { dataService } from "../services/dataService";
 
 import { displayInterface, changeUIPosition } from "./userInterface/userInterface";
@@ -22,7 +21,7 @@ export const getUserLocationData = () => {
     const interfaceErrorContainer = document.querySelector(".interface-error-container");
     interfaceErrorContainer.textContent = "";
 
-    geolocationService.getUserGeoPosition(
+    dataService.getUserCoordinates(
         message => displayError(message),
         userCoordinates => {
             showLoader();

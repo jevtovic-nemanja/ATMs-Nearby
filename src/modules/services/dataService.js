@@ -6,7 +6,11 @@ import Atm from "../entities/atm";
 class DataService {
     constructor() { }
 
-    getUserCoordinates(position) {
+    getUserCoordinates(isNotSupportedHandler, successHandler, errorHandler) {
+        commService.getUserGeoPosition(isNotSupportedHandler, successHandler, errorHandler);
+    }
+    
+    packUserCoordinates(position) {
         const { latitude, longitude } = position.coords;
         const userCoordinates = new UserCoordinates(latitude, longitude);
         return userCoordinates;
