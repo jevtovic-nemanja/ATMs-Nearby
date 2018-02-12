@@ -3,6 +3,8 @@ import { GOOGLE_STATIC_MAPS_URL } from "../../../constants";
 import { appendChildren, formatDistance } from "../../../utils/helpers";
 import { displayFilterOptions } from "../filterOptions/filterOptions";
 
+import "./atmsList.css";
+
 export const displayAtmsList = (currentAtms, errorHandler) => {
     const listContainer = document.querySelector(".list-container");
     listContainer.innerHTML = "";
@@ -17,6 +19,7 @@ export const displayAtmsList = (currentAtms, errorHandler) => {
             const map = document.createElement("img");
 
             const { lat, lng, name, distance } = atm;
+            card.classList.add("card");
             bankName.textContent = name;
             distanceFromUser.textContent = formatDistance(distance);
             map.src = `${GOOGLE_STATIC_MAPS_URL}&markers=size:mid|${lat},${lng}`;

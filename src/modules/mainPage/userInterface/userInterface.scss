@@ -1,0 +1,13 @@
+.title {
+    font-family: "Helvetica", sans-serif;
+    font-weight: 900;
+    display: inline-block;
+}
+
+.find-button {
+    background-color: greenyellow;
+}
+
+.find-button:focus {
+    box-shadow: none;
+}

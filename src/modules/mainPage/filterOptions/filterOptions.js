@@ -1,6 +1,8 @@
 import { appendChildren } from "../../../utils/helpers";
 import { handleFilterClick, handleSortClick } from "../mainPage";
 
+import "./filterOptions.css";
+
 export const displayFilterOptions = () => {
     const listContainer = document.querySelector(".list-container");
 
@@ -9,6 +11,7 @@ export const displayFilterOptions = () => {
     const multiCurrencyButton = document.createElement("button");
     const filterErrorContainer = document.createElement("div");
 
+    buttonGroup.classList.add("filter-btn-group");
     filterErrorContainer.classList.add("filter-error-container");
     sortButton.classList.add("btn-sort");
     multiCurrencyButton.classList.add("btn-filter");
