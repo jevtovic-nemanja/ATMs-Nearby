@@ -6,8 +6,9 @@
     .title {
         font-family: "Helvetica", sans-serif;
         font-weight: 900;
-        font-size: 1.7em;
+        font-size: 1.6em;
         text-align: center;
+        margin-bottom: 10px;
 
         @media screen and (min-width: 576px) {
             font-size: 36px;
@@ -42,5 +43,5 @@
 
 .ui-container-top {
     transition: transform 0.5s;
-    transform: translate(0, -20vh);
+    transform: translate(0, -30vh);
 }
