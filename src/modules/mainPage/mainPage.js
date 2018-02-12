@@ -3,7 +3,7 @@ import { RESULTS_PER_REQUEST } from "../../constants";
 import { geolocationService } from "../services/geolocationService";
 import { dataService } from "../services/dataService";
 
-import { displayInterface } from "./userInterface/userInterface";
+import { displayInterface, changeUIPosition } from "./userInterface/userInterface";
 import { displayAtmsList } from "./atmsList/atmsList";
 import { showLoader, hideLoader } from "./loader/loader";
 
@@ -37,11 +37,13 @@ const errorHandler = error => {
 export const getUserLocationData = () => {
     const errorContainer = document.querySelector(".interface-error-container");
     errorContainer.textContent = "";
-    showLoader();
 
     geolocationService.getUserGeoPosition(
         message => geolocationNotSupportedHandler(message),
-        userCoordinates => getAtmList(userCoordinates),
+        userCoordinates => {
+            showLoader();
+            getAtmList(userCoordinates);
+        },
         error => errorHandler(error)
     );
 };
@@ -55,6 +57,7 @@ const getAtmList = userCoordinates => {
             if (allAtms.length === RESULTS_PER_REQUEST) {
                 findClosestAtms(allAtms);
                 hideLoader();
+                changeUIPosition();
                 displayAtmsList(data.currentAtms, errorHandler);
             }
         },

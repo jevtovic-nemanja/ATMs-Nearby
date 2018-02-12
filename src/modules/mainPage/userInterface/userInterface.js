@@ -22,13 +22,12 @@ export const displayInterface = () => {
     loaderContainer.classList.add("loader-container");
 
     findButton.addEventListener("click", getUserLocationData);
-    findButton.addEventListener("click", changeUIPosition);
 
     appendChildren(uiContainer, message, findButton, interfaceErrorContainer, loaderContainer);
     appendChildren(app, uiContainer, listContainer);
 };
 
-const changeUIPosition = () => {
+export const changeUIPosition = () => {
     const userInterface = document.querySelector(".ui-container");
     userInterface.classList.add("ui-container-top");
 };
