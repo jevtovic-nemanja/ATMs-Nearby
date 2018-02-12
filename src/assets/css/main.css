@@ -1,6 +1,20 @@
 /* Body sizing */
 
 body {
-    width: 100%;
     box-sizing: border-box;
+    background-color: #f1f1f2;
+}
+
+@font-face {
+    font-family: "Mentone";
+    src: url("../fonts/mentone-semibol.otf");
+}
+
+main {
+    margin: 0 10%;
+}
+
+button:focus {
+    box-shadow: none;
+    outline: none;
 }

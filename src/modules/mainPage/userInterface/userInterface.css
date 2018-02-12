@@ -1,0 +1,38 @@
+.wrapper {
+  position: relative;
+  top: 25vh; }
+  .wrapper .ui-container {
+    display: grid; }
+  .wrapper .title {
+    font-family: "Helvetica", sans-serif;
+    font-weight: 900;
+    font-size: 1.6em;
+    text-align: center;
+    margin-bottom: 10px; }
+    @media screen and (min-width: 576px) {
+      .wrapper .title {
+        font-size: 36px; } }
+    @media screen and (min-width: 768px) {
+      .wrapper .title {
+        font-size: 48px; } }
+  .wrapper .btn-find {
+    background-color: #1995ad;
+    border-radius: 5px;
+    color: white;
+    font-family: "Verdana";
+    padding: 10px 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    margin: auto auto; }
+  .wrapper .btn-find:hover {
+    background-color: #16859c; }
+  .wrapper .btn-find:active {
+    position: relative;
+    top: 1px; }
+
+.wrapper-top {
+  transition: transform 0.5s;
+  transform: translate(0, -30vh); }
+
+/*# sourceMappingURL=userInterface.css.map */

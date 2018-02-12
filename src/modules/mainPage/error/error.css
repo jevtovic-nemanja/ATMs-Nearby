@@ -1,0 +1,11 @@
+.interface-error-container,
+.filter-error-container {
+  margin: 10px auto;
+  color: #1995ad;
+  text-align: center; }
+
+@media screen and (min-width: 768px) {
+  .filter-error-container {
+    grid-column: span 2; } }
+
+/*# sourceMappingURL=error.css.map */
