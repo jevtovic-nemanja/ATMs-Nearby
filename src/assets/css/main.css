@@ -9,3 +9,12 @@ body {
     font-family: "Mentone";
     src: url("../fonts/mentone-semibol.otf");
 }
+
+main {
+    margin: 0 10%;
+}
+
+button:focus {
+    box-shadow: none;
+    outline: none;
+}
