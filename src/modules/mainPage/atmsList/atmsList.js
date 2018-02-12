@@ -9,8 +9,6 @@ export const displayAtmsList = (currentAtms, errorHandler) => {
     const listContainer = document.querySelector(".list-container");
     listContainer.innerHTML = "";
 
-    displayFilterOptions();
-
     if (currentAtms.length) {
         currentAtms.forEach(atm => {
             const card = document.createElement("div");
