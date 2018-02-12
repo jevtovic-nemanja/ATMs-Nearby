@@ -1,7 +1,10 @@
-.ui-container {
+.wrapper {
     position: relative;
     top: 25vh;
-    display: grid;
+    
+    .ui-container {
+        display: grid;
+    }
 
     .title {
         font-family: "Helvetica", sans-serif;
@@ -41,7 +44,7 @@
     }
 }
 
-.ui-container-top {
+.wrapper-top {
     transition: transform 0.5s;
     transform: translate(0, -30vh);
 }

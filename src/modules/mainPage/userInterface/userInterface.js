@@ -6,6 +6,7 @@ import "./userInterface.css";
 export const displayInterface = () => {
     const app = document.querySelector(".app");
     const uiContainer = document.createElement("div");
+    const wrapper = document.createElement("div");
     const message = document.createElement("h4");
     const findButton = document.createElement("button");
     const interfaceErrorContainer = document.createElement("div");
@@ -20,14 +21,16 @@ export const displayInterface = () => {
     interfaceErrorContainer.classList.add("interface-error-container");
     listContainer.classList.add("list-container");
     loaderContainer.classList.add("loader-container");
+    wrapper.classList.add("wrapper");
 
     findButton.addEventListener("click", getUserLocationData);
 
     appendChildren(uiContainer, message, findButton, interfaceErrorContainer, loaderContainer);
-    appendChildren(app, uiContainer, listContainer);
+    appendChildren(wrapper, uiContainer, listContainer);
+    appendChildren(app, wrapper);
 };
 
 export const changeUIPosition = () => {
-    const userInterface = document.querySelector(".ui-container");
-    userInterface.classList.add("ui-container-top");
+    const userInterface = document.querySelector(".wrapper");
+    userInterface.classList.add("wrapper-top");
 };
