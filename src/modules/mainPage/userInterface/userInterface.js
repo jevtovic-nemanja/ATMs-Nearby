@@ -5,13 +5,14 @@ import "./userInterface.css";
 
 export const displayInterface = () => {
     const app = document.querySelector(".app");
-    const userInterface = document.createElement("div");
+    const uiContainer = document.createElement("div");
     const message = document.createElement("h4");
     const findButton = document.createElement("button");
     const interfaceErrorContainer = document.createElement("div");
     const listContainer = document.createElement("div");
 
-    message.textContent = "FIND NEARBY ATMS";
+    uiContainer.classList.add("ui-container");
+    message.textContent = "Find nearby ATM";
     message.classList.add("title");
     findButton.textContent = "Use My Location";
     findButton.classList.add("btn-find");
@@ -19,7 +20,13 @@ export const displayInterface = () => {
     listContainer.classList.add("list-container");
 
     findButton.addEventListener("click", getUserLocationData);
+    findButton.addEventListener("click", changeUIPosition);
 
-    appendChildren(userInterface, message, findButton, interfaceErrorContainer);
-    appendChildren(app, userInterface, listContainer);
+    appendChildren(uiContainer, message, findButton, interfaceErrorContainer);
+    appendChildren(app, uiContainer, listContainer);
+};
+
+const changeUIPosition = () => {
+    const userInterface = document.querySelector(".ui-container");
+    userInterface.classList.add("ui-container-top");
 };

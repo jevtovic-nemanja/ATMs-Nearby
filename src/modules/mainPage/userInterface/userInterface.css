@@ -1,12 +1,36 @@
-.title {
-  font-family: "Helvetica", sans-serif;
-  font-weight: 900;
-  display: inline-block; }
+.ui-container {
+  position: relative;
+  top: 25vh;
+  display: grid; }
+  .ui-container .title {
+    font-family: "Helvetica", sans-serif;
+    font-weight: 900;
+    font-size: 1.7em;
+    text-align: center; }
+    @media screen and (min-width: 576px) {
+      .ui-container .title {
+        font-size: 36px; } }
+    @media screen and (min-width: 768px) {
+      .ui-container .title {
+        font-size: 48px; } }
+  .ui-container .btn-find {
+    background-color: #1995ad;
+    border-radius: 5px;
+    color: white;
+    font-family: "Verdana";
+    padding: 10px 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    margin: auto auto; }
+  .ui-container .btn-find:hover {
+    background-color: #16859c; }
+  .ui-container .btn-find:active {
+    position: relative;
+    top: 1px; }
 
-.find-button {
-  background-color: greenyellow; }
-
-.find-button:focus {
-  box-shadow: none; }
+.ui-container-top {
+  transition: transform 0.5s;
+  transform: translate(0, -20vh); }
 
 /*# sourceMappingURL=userInterface.css.map */
