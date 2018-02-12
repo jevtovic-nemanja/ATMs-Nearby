@@ -1,6 +1,7 @@
 .interface-error-container,
 .filter-error-container {
   margin: 10px auto;
-  color: #1995ad; }
+  color: #1995ad;
+  text-align: center; }
 
 /*# sourceMappingURL=error.css.map */
