@@ -6,6 +6,7 @@ import { dataService } from "../services/dataService";
 import { displayInterface, changeUIPosition } from "./userInterface/userInterface";
 import { displayAtmsList } from "./atmsList/atmsList";
 import { showLoader, hideLoader } from "./loader/loader";
+import { displayError } from "./error/error";
 
 const app = document.querySelector(".app");
 let data = {
@@ -16,35 +17,17 @@ let data = {
     onlyMultiCurrency: false
 };
 
-const geolocationNotSupportedHandler = (message) => {
-    const errorContainer = document.querySelector(".interface-error-container");
-    errorContainer.textContent = message;
-};
-
-const errorHandler = error => {
-    const interfaceErrorContainer = document.querySelector(".interface-error-container");
-    const filterErrorContainer = document.querySelector(".filter-error-container");
-
-    if (error.code && error.code === 1) {
-        interfaceErrorContainer.textContent = "Geolocation is currently disabled. Please enable it in your browser's settings in order to see the results.";
-    } else if (error === "NO_RESULTS") {
-        filterErrorContainer.textContent = "There are no results for the specified search criteria.";
-    } else {
-        interfaceErrorContainer.textContent = "Unfortunately, something has went wrong. Don't worry, we're looking into it.";
-    }
-};
-
 export const getUserLocationData = () => {
     const errorContainer = document.querySelector(".interface-error-container");
     errorContainer.textContent = "";
 
     geolocationService.getUserGeoPosition(
-        message => geolocationNotSupportedHandler(message),
+        message => displayError(message),
         userCoordinates => {
             showLoader();
             getAtmList(userCoordinates);
         },
-        error => errorHandler(error)
+        error => displayError(error)
     );
 };
 
@@ -58,10 +41,10 @@ const getAtmList = userCoordinates => {
                 findClosestAtms(allAtms);
                 hideLoader();
                 changeUIPosition();
-                displayAtmsList(data.currentAtms, errorHandler);
+                displayAtmsList(data.currentAtms, displayError);
             }
         },
-        error => errorHandler(error));
+        error => displayError(error));
 };
 
 const findClosestAtms = atmList => {
@@ -105,7 +88,7 @@ const assignCurrentAtms = () => {
         data.currentAtms = sortedAtms.filter(atm => atm.isMultiCurrency);
     }
 
-    displayAtmsList(data.currentAtms, errorHandler);
+    displayAtmsList(data.currentAtms, displayError);
 };
 
 export const onPageLoad = () => {
