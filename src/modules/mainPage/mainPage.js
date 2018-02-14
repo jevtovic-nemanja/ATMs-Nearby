@@ -4,7 +4,7 @@ import { dataService } from "../services/dataService";
 
 import { displayInterface, changeUIPosition } from "./userInterface/userInterface";
 import { displayFilterOptions, toggleCheckmark } from "./filterOptions/filterOptions";
-import { displayAtmsList } from "./atmsList/atmsList";
+import { clearListContainer, displayAtm } from "./atmsList/atmsList";
 import { showLoader, hideLoader } from "./loader/loader";
 import { displayError } from "./error/error";
 
@@ -42,7 +42,8 @@ const getAtmList = userCoordinates => {
                 hideLoader();
                 changeUIPosition();
                 displayFilterOptions();
-                displayAtmsList(data.currentAtms, displayError);
+                clearListContainer();
+                data.currentAtms.forEach(atm => displayAtm(atm));
             }
         },
         error => displayError(error));
@@ -92,7 +93,12 @@ const assignCurrentAtms = () => {
         data.currentAtms = sortedAtms.filter(atm => atm.isMultiCurrency);
     }
 
-    displayAtmsList(data.currentAtms, displayError);
+    if (data.currentAtms.length) {
+        clearListContainer();
+        data.currentAtms.forEach(atm => displayAtm(atm));
+    } else {
+        displayError("NO_RESULTS");
+    }
 };
 
 export const onPageLoad = () => {

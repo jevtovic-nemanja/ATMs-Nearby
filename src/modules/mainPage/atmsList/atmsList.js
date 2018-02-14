@@ -5,32 +5,30 @@ import { displayFilterOptions } from "../filterOptions/filterOptions";
 
 import "./atmsList.css";
 
-export const displayAtmsList = (currentAtms, errorHandler) => {
+export const clearListContainer = () => {
     const listContainer = document.querySelector(".list-container");
     listContainer.innerHTML = "";
+};
 
-    if (currentAtms.length) {
-        currentAtms.forEach(atm => {
-            const card = document.createElement("div");
-            const bankName = document.createElement("p");
-            const distanceFromUser = document.createElement("p");
-            const map = document.createElement("img");
-            const text = document.createElement("div");
+export const displayAtm = atm => {
+    const listContainer = document.querySelector(".list-container");
+    
+    const card = document.createElement("div");
+    const bankName = document.createElement("p");
+    const distanceFromUser = document.createElement("p");
+    const map = document.createElement("img");
+    const text = document.createElement("div");
 
-            const { lat, lng, name, distance } = atm;
-            card.classList.add("card");
-            bankName.textContent = name;
-            bankName.classList.add("bank-name");
-            distanceFromUser.textContent = formatDistance(distance);
-            map.src = `${GOOGLE_STATIC_MAPS_URL}?size=150x150&zoom=15&scale=2&markers=size:small|${lat},${lng}`;
-            map.alt = "ATM Location Map";
-            text.classList.add("atm-info");
+    const { lat, lng, name, distance } = atm;
+    card.classList.add("card");
+    bankName.textContent = name;
+    bankName.classList.add("bank-name");
+    distanceFromUser.textContent = formatDistance(distance);
+    map.src = `${GOOGLE_STATIC_MAPS_URL}?size=150x150&zoom=15&scale=2&markers=size:small|${lat},${lng}`;
+    map.alt = "ATM Location Map";
+    text.classList.add("atm-info");
 
-            appendChildren(text, bankName, distanceFromUser);
-            appendChildren(card, map, text);
-            appendChildren(listContainer, card);
-        });
-    } else {
-        errorHandler("NO_RESULTS");
-    }
+    appendChildren(text, bankName, distanceFromUser);
+    appendChildren(card, map, text);
+    appendChildren(listContainer, card);
 };
