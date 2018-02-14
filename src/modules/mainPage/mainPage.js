@@ -93,8 +93,9 @@ const assignCurrentAtms = () => {
         data.currentAtms = sortedAtms.filter(atm => atm.isMultiCurrency);
     }
 
+    clearListContainer();
+    
     if (data.currentAtms.length) {
-        clearListContainer();
         data.currentAtms.forEach(atm => displayAtm(atm));
     } else {
         displayError("NO_RESULTS");
