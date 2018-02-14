@@ -19,7 +19,7 @@ class DataService {
     getAtmData(userCoordinates, handleData, errorCallback) {
         commService.getAtmData(
             userCoordinates,
-            (atmData, distanceFromUser) => handleData(this.packAtmData(atmData, distanceFromUser)),
+            (atmData, distanceFromUser, atmsLength) => handleData(this.packAtmData(atmData, distanceFromUser), atmsLength),
             errorCallback
         );
     }

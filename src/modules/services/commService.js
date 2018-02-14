@@ -32,7 +32,7 @@ class CommService {
                 ? results.forEach(
                     result => this.getDistance(
                         userCoordinates, result,
-                        distance => getDataSuccess(result, distance),
+                        distance => getDataSuccess(result, distance, results.length),
                         errorCallback)
                 )
                 : errorCallback(status);

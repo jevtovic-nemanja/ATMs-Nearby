@@ -1,4 +1,4 @@
-import { RESULTS_PER_REQUEST } from "../../constants";
+import { RESULTS_PER_REQUEST, RESULTS_PER_LIST } from "../../constants";
 
 import { dataService } from "../services/dataService";
 
@@ -35,10 +35,10 @@ const getAtmList = userCoordinates => {
     const allAtms = [];
 
     dataService.getAtmData(userCoordinates,
-        atm => {
+        (atm, atmsLength) => {
             allAtms.push(atm);
-            if (allAtms.length === RESULTS_PER_REQUEST) {
-                findClosestAtms(allAtms);
+            if (allAtms.length === atmsLength) {
+                findClosestAtms(allAtms, atmsLength);
                 hideLoader();
                 changeUIPosition();
                 displayFilterOptions();
@@ -48,8 +48,9 @@ const getAtmList = userCoordinates => {
         error => displayError(error));
 };
 
-const findClosestAtms = atmList => {
-    const closestAtms = sortByDistance(atmList).slice(0, 10);
+const findClosestAtms = (atmList, atmsLength) => {
+    const resultsPerList = atmsLength < RESULTS_PER_LIST ? atmsLength : RESULTS_PER_LIST;
+    const closestAtms = sortByDistance(atmList).slice(0, resultsPerList);
     const atms = atmList.filter(atm => closestAtms.includes(atm));
     data.atms = atms;
     data.currentAtms = atms;
