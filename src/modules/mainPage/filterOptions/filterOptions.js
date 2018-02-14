@@ -5,6 +5,7 @@ import "./filterOptions.css";
 
 export const displayFilterOptions = () => {
     const filterContainer = document.querySelector(".filter-container");
+    filterContainer.innerHTML = "";
 
     const sortButton = document.createElement("button");
     const multiCurrencyButton = document.createElement("button");
