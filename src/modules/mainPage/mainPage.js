@@ -43,7 +43,7 @@ const getAtmList = userCoordinates => {
                 changeUIPosition();
                 displayFilterOptions();
                 clearListContainer();
-                data.currentAtms.forEach(atm => displayAtm(atm));
+                data.currentAtms.forEach(atm => displayAtm(atm, true, atmsLength));
             }
         },
         error => displayError(error));
@@ -96,7 +96,7 @@ const assignCurrentAtms = () => {
     clearListContainer();
     
     if (data.currentAtms.length) {
-        data.currentAtms.forEach(atm => displayAtm(atm));
+        data.currentAtms.forEach(atm => displayAtm(atm, false));
     } else {
         displayError("NO_RESULTS");
     }

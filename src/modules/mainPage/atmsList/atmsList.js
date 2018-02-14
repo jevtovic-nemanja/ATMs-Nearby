@@ -10,9 +10,11 @@ export const clearListContainer = () => {
     listContainer.innerHTML = "";
 };
 
-export const displayAtm = atm => {
+let transitionCounter = 0;
+
+export const displayAtm = (atm, isTransition, listLength) => {
     const listContainer = document.querySelector(".list-container");
-    
+
     const card = document.createElement("div");
     const bankName = document.createElement("p");
     const distanceFromUser = document.createElement("p");
@@ -31,4 +33,15 @@ export const displayAtm = atm => {
     appendChildren(text, bankName, distanceFromUser);
     appendChildren(card, map, text);
     appendChildren(listContainer, card);
+
+    if (isTransition) {
+        card.classList.add("card-initial");
+        setTimeout(() => {
+            card.classList.add("card-transition");
+        }, transitionCounter);
+
+        transitionCounter === (listLength - 1) * 100
+            ? transitionCounter = 0
+            : transitionCounter += 100;
+    }
 };

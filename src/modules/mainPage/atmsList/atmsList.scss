@@ -42,4 +42,14 @@
             width: 750px;
         }
     }
+
+    .card-initial {
+        position: relative;
+        right: 100vw;
+    }
+
+    .card-transition {
+        transition: transform 0.5s;
+        transform: translate(100vw, 0);
+    }
 }
