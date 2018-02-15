@@ -1,4 +1,4 @@
-import { RESULTS_PER_REQUEST, MAX_RESULTS_PER_LIST } from "../../constants";
+import { MAX_RESULTS_PER_LIST } from "../../constants";
 
 import { dataService } from "../services/dataService";
 
@@ -8,7 +8,6 @@ import { clearListContainer, displayAtm } from "./atmsList/atmsList";
 import { showLoader, hideLoader } from "./loader/loader";
 import { displayError } from "./error/error";
 
-const app = document.querySelector(".app");
 let data = {
     atms: [],
     sortedAtms: [],
