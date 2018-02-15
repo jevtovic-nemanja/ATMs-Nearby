@@ -4,7 +4,6 @@ class CommService {
     constructor() { }
 
     getUserGeoPosition(isNotSupportedHandler, successHandler, errorHandler) {
-
         if (!navigator.geolocation) {
             isNotSupportedHandler("NO_GEOLOCATION");
             return;
@@ -27,16 +26,19 @@ class CommService {
         };
 
         const service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(request, (results, status) => {
-            status === "OK"
-                ? results.forEach(
-                    result => this.getDistance(
-                        userCoordinates, result,
+        service.nearbySearch(
+            request,
+            (results, status) => {
+                status === "OK"
+                    ? results.forEach(result => this.getDistance(
+                        userCoordinates,
+                        result,
                         distance => getDataSuccess(result, distance, results.length),
-                        errorCallback)
-                )
-                : errorCallback(status);
-        });
+                        errorCallback
+                    )
+                    )
+                    : errorCallback(status);
+            });
     }
 
     getDistance(userCoordinates, atm, getDistanceSuccess, errorCallback) {
@@ -56,13 +58,13 @@ class CommService {
         };
 
         const service = new google.maps.DistanceMatrixService();
-        service.getDistanceMatrix(request, (result, status) => {
-            if (status === "OK") {
-                getDistanceSuccess(result.rows[0].elements[0].distance.text);
-            } else {
-                errorCallback(status);
-            }
-        });
+        service.getDistanceMatrix(
+            request,
+            (result, status) => {
+                status === "OK"
+                    ? getDistanceSuccess(result.rows[0].elements[0].distance.text)
+                    : errorCallback(status);
+            });
     }
 }
 

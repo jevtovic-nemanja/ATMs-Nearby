@@ -28,6 +28,16 @@
             display: inline;
         }
     }
+
+    @media screen and (min-width: 768px) {
+        .btn-sort {
+            margin-right: 5px;
+        }
+
+        .btn-filter {
+            margin-left: 5px;
+        }
+     }
     
     .btn-sort:hover,
     .btn-filter:hover {
@@ -39,14 +49,4 @@
         position: relative;
         top: 1px;
     }
-
-    @media screen and (min-width: 768px) {
-        .btn-sort {
-            margin-right: 5px;
-        }
-
-        .btn-filter {
-            margin-left: 5px;
-        }
-     }
 }

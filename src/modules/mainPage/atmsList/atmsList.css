@@ -29,12 +29,6 @@
     @media screen and (min-width: 992px) {
       .list-container .card {
         width: 750px; } }
-  .list-container .card-initial {
-    position: relative;
-    right: 100vw; }
-  .list-container .card-transition {
-    transition: transform 0.5s;
-    transform: translate(100vw, 0); }
   .list-container .map-tablet {
     display: none; }
     @media screen and (min-width: 768px) {
@@ -43,5 +37,11 @@
   @media screen and (min-width: 768px) {
     .list-container .map-mobile {
       display: none; } }
+  .list-container .card-initial {
+    position: relative;
+    right: 100vw; }
+  .list-container .card-transition {
+    transition: transform 0.5s;
+    transform: translate(100vw, 0); }
 
 /*# sourceMappingURL=atmsList.css.map */

@@ -1,4 +1,4 @@
-import { RESULTS_PER_REQUEST, RESULTS_PER_LIST } from "../../constants";
+import { RESULTS_PER_REQUEST, MAX_RESULTS_PER_LIST } from "../../constants";
 
 import { dataService } from "../services/dataService";
 
@@ -17,7 +17,12 @@ let data = {
     onlyMultiCurrency: false
 };
 
-export const getUserLocationData = () => {
+const addFindListener = () => {
+    const findButton = document.querySelector(".btn-find");
+    findButton.addEventListener("click", getUserLocationData);
+};
+
+const getUserLocationData = () => {
     const interfaceErrorContainer = document.querySelector(".interface-error-container");
     interfaceErrorContainer.textContent = "";
 
@@ -42,6 +47,7 @@ const getAtmList = userCoordinates => {
                 hideLoader();
                 changeUIPosition();
                 displayFilterOptions();
+                addFilterListeners();
                 clearListContainer();
                 data.currentAtms.forEach(atm => displayAtm(atm, true, atmsLength));
             }
@@ -49,8 +55,27 @@ const getAtmList = userCoordinates => {
         error => displayError(error));
 };
 
+const addFilterListeners = () => {
+    const sortButton = document.querySelector(".btn-sort");
+    const filterButton = document.querySelector(".btn-filter");
+    sortButton.addEventListener("click", handleSortClick);
+    filterButton.addEventListener("click", handleFilterClick);
+};
+
+const handleSortClick = () => {
+    data.sort = !data.sort;
+    toggleCheckmark("sort-check");
+    assignCurrentAtms();
+};
+
+const handleFilterClick = () => {
+    data.onlyMultiCurrency = !data.onlyMultiCurrency;
+    toggleCheckmark("filter-check");
+    assignCurrentAtms();
+};
+
 const findClosestAtms = (atmList, atmsLength) => {
-    const resultsPerList = atmsLength < RESULTS_PER_LIST ? atmsLength : RESULTS_PER_LIST;
+    const resultsPerList = atmsLength < MAX_RESULTS_PER_LIST ? atmsLength : MAX_RESULTS_PER_LIST;
     const closestAtms = sortByDistance(atmList).slice(0, resultsPerList);
     const atms = atmList.filter(atm => closestAtms.includes(atm));
     data.atms = atms;
@@ -66,18 +91,6 @@ const sortByDistance = atms => {
         return distanceA - distanceB;
     });
     return atmArray;
-};
-
-export const handleSortClick = () => {
-    data.sort = !data.sort;
-    toggleCheckmark("sort-check");
-    assignCurrentAtms();
-};
-
-export const handleFilterClick = () => {
-    data.onlyMultiCurrency = !data.onlyMultiCurrency;
-    toggleCheckmark("filter-check");
-    assignCurrentAtms();
 };
 
 const assignCurrentAtms = () => {
@@ -104,4 +117,5 @@ const assignCurrentAtms = () => {
 
 export const onPageLoad = () => {
     displayInterface();
+    addFindListener();
 };

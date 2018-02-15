@@ -7,5 +7,5 @@ export const showLoader = () => {
 
 export const hideLoader = () => {
     const loaderContainer = document.querySelector(".loader-container");
-    loaderContainer.textContent = "";
+    loaderContainer.innerHTML = "";
 };

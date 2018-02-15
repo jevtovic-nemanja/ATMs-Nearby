@@ -24,6 +24,11 @@
     .filter-container .btn-sort .show-check,
     .filter-container .btn-filter .show-check {
       display: inline; }
+  @media screen and (min-width: 768px) {
+    .filter-container .btn-sort {
+      margin-right: 5px; }
+    .filter-container .btn-filter {
+      margin-left: 5px; } }
   .filter-container .btn-sort:hover,
   .filter-container .btn-filter:hover {
     background-color: #a1cde2; }
@@ -31,10 +36,5 @@
   .filter-container .btn-filter:active {
     position: relative;
     top: 1px; }
-  @media screen and (min-width: 768px) {
-    .filter-container .btn-sort {
-      margin-right: 5px; }
-    .filter-container .btn-filter {
-      margin-left: 5px; } }
 
 /*# sourceMappingURL=filterOptions.css.map */

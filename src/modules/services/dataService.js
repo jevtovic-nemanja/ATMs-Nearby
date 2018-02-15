@@ -1,6 +1,6 @@
 import { commService } from "./commService";
 
-import UserCoordinates from "../entities/userLocation";
+import UserCoordinates from "../entities/userCoordinates";
 import Atm from "../entities/atm";
 
 class DataService {
@@ -9,7 +9,7 @@ class DataService {
     getUserCoordinates(isNotSupportedHandler, successHandler, errorHandler) {
         commService.getUserGeoPosition(isNotSupportedHandler, successHandler, errorHandler);
     }
-    
+
     packUserCoordinates(position) {
         const { latitude, longitude } = position.coords;
         const userCoordinates = new UserCoordinates(latitude, longitude);
@@ -19,7 +19,10 @@ class DataService {
     getAtmData(userCoordinates, handleData, errorCallback) {
         commService.getAtmData(
             userCoordinates,
-            (atmData, distanceFromUser, atmsLength) => handleData(this.packAtmData(atmData, distanceFromUser), atmsLength),
+            (atmData, distanceFromUser, atmsLength) => handleData(
+                this.packAtmData(atmData, distanceFromUser),
+                atmsLength
+            ),
             errorCallback
         );
     }

@@ -4,43 +4,43 @@
     
     .ui-container {
         display: grid;
-    }
 
-    .title {
-        font-family: "Helvetica", sans-serif;
-        font-weight: 900;
-        font-size: 1.6em;
-        text-align: center;
-        margin-bottom: 10px;
-
-        @media screen and (min-width: 576px) {
-            font-size: 36px;
+        .title {
+            font-family: "Helvetica", sans-serif;
+            font-weight: 900;
+            font-size: 1.6em;
+            text-align: center;
+            margin-bottom: 10px;
+    
+            @media screen and (min-width: 576px) {
+                font-size: 36px;
+            }
+        
+            @media screen and (min-width: 768px) {
+                font-size: 48px;
+            }
+        }
+        
+        .btn-find {
+            background-color: #1995ad;
+            border-radius: 5px;
+            color: white;
+            font-family: "Verdana";
+            padding: 10px 20px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            margin: auto auto;
         }
     
-        @media screen and (min-width: 768px) {
-            font-size: 48px;
+        .btn-find:hover {
+            background-color: #16859c;
         }
-    }
     
-    .btn-find {
-        background-color: #1995ad;
-        border-radius: 5px;
-        color: white;
-        font-family: "Verdana";
-        padding: 10px 20px;
-        text-decoration: none;
-        cursor: pointer;
-        border: none;
-        margin: auto auto;
-    }
-
-    .btn-find:hover {
-        background-color: #16859c;
-    }
-
-    .btn-find:active {
-        position: relative;
-        top: 1px;
+        .btn-find:active {
+            position: relative;
+            top: 1px;
+        }
     }
 }
 
