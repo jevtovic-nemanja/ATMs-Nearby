@@ -35,5 +35,13 @@
   .list-container .card-transition {
     transition: transform 0.5s;
     transform: translate(100vw, 0); }
+  .list-container .map-tablet {
+    display: none; }
+    @media screen and (min-width: 768px) {
+      .list-container .map-tablet {
+        display: inline; } }
+  @media screen and (min-width: 768px) {
+    .list-container .map-mobile {
+      display: none; } }
 
 /*# sourceMappingURL=atmsList.css.map */

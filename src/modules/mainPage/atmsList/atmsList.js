@@ -18,7 +18,8 @@ export const displayAtm = (atm, isTransition, listLength) => {
     const card = document.createElement("div");
     const bankName = document.createElement("p");
     const distanceFromUser = document.createElement("p");
-    const map = document.createElement("img");
+    const mobileMap = document.createElement("img");
+    const desktopMap = document.createElement("img");
     const text = document.createElement("div");
 
     const { lat, lng, name, distance } = atm;
@@ -26,12 +27,16 @@ export const displayAtm = (atm, isTransition, listLength) => {
     bankName.textContent = name;
     bankName.classList.add("bank-name");
     distanceFromUser.textContent = formatDistance(distance);
-    map.src = `${GOOGLE_STATIC_MAPS_URL}?size=150x150&zoom=15&scale=2&markers=size:small|${lat},${lng}`;
-    map.alt = "ATM Location Map";
+    mobileMap.src = `${GOOGLE_STATIC_MAPS_URL}?size=150x150&zoom=15&scale=2&markers=size:small|${lat},${lng}`;
+    desktopMap.src = `${GOOGLE_STATIC_MAPS_URL}?size=250x250&zoom=15&markers=${lat},${lng}`;
+    mobileMap.alt = "ATM Location Map";
+    desktopMap.alt = "ATM Location Map";
+    mobileMap.classList.add("map-mobile");
+    desktopMap.classList.add("map-tablet");
     text.classList.add("atm-info");
 
     appendChildren(text, bankName, distanceFromUser);
-    appendChildren(card, map, text);
+    appendChildren(card, mobileMap, desktopMap, text);
     appendChildren(listContainer, card);
 
     if (isTransition) {
