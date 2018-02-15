@@ -1,3 +1,5 @@
+/* eslint no-undef: 0 */
+
 import { dataService } from "./dataService";
 
 class CommService {
