@@ -2,7 +2,7 @@ import { GOOGLE_STATIC_MAPS_URL } from "../../../constants";
 
 import { appendChildren, formatDistance } from "../../../utils/helpers";
 
-import "./atmsList.css";
+import "./atmsList.scss";
 
 export const clearListContainer = () => {
     const listContainer = document.querySelector(".list-container");

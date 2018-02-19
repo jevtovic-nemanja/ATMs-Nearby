@@ -1,4 +1,4 @@
-import "./loader.css";
+import "./loader.scss";
 
 export const showLoader = () => {
     const loaderContainer = document.querySelector(".loader-container");

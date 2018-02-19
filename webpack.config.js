@@ -22,8 +22,14 @@ module.exports = {
                 loaders: ["babel-loader"]
             },
             {
-                test: /(\.css)$/,
-                loaders: ["style-loader", "css-loader"]
+                test: /(\.scss)$/,
+                exclude: /node_modules/,
+                loaders: ["style-loader", "css-loader", "sass-loader"]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                exclude: /node_modules/,
+                loader: "file-loader"
             }
         ]
     }
