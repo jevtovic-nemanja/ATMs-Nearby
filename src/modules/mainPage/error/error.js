@@ -1,4 +1,4 @@
-import "./error.css";
+import "./error.scss";
 
 export const displayError = error => {
     const interfaceErrorContainer = document.querySelector(".interface-error-container");

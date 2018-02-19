@@ -1,6 +1,6 @@
 import { appendChildren } from "../../../utils/helpers";
 
-import "./userInterface.css";
+import "./userInterface.scss";
 
 export const displayInterface = () => {
     const app = document.querySelector(".app");

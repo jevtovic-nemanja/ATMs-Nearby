@@ -1,6 +1,6 @@
 import { appendChildren } from "../../../utils/helpers";
 
-import "./filterOptions.css";
+import "./filterOptions.scss";
 
 export const displayFilterOptions = () => {
     const filterContainer = document.querySelector(".filter-container");
