@@ -24,7 +24,17 @@ module.exports = {
             {
                 test: /(\.scss)$/,
                 exclude: /node_modules/,
-                loaders: ["style-loader", "css-loader", "sass-loader"]
+                loaders: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 1
+                        }
+                    },
+                    "postcss-loader",
+                    "sass-loader"
+                ]
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
